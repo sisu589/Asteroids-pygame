@@ -30,8 +30,16 @@ def main():
     while True:        
         screen.fill((0,0,0)) # Clear the screen black
 
-        # update all updatable objects
+        
         updatable.update(dt)
+
+        # Check for collisions between player and asteroids
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                print("Game over!")
+                pygame.quit()
+                exit()
+
         for sprite in drawable:
             sprite.draw(screen)
         pygame.display.flip()
