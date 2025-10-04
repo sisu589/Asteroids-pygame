@@ -8,6 +8,7 @@ from asteroidfield import *
 updatable = pygame.sprite.Group()
 drawable = pygame.sprite.Group()
 asteroids = pygame.sprite.Group()
+shots = pygame.sprite.Group()
 
 
 def main():
@@ -22,10 +23,12 @@ def main():
     dt = 0
     
     # Create the player object outside the game loop
-    player = Player(SCREEN_HEIGHT / 2, SCREEN_WIDTH /2, containers=(updatable, drawable))
+    player = Player(SCREEN_HEIGHT / 2, SCREEN_WIDTH /2, containers=(updatable, drawable), shots_group=shots)
+    Shot.containers = (shots, drawable, updatable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
     asteroid_field = AsteroidField()
+
 
     while True:        
         screen.fill((0,0,0)) # Clear the screen black

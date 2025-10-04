@@ -1,11 +1,13 @@
+from pickle import SHORT_BINSTRING
 import pygame
 from constants import *
 from circleshape import CircleShape
-
+from shot import Shot  
 
 class Player(CircleShape):
-    def __init__(self, x: int, y: int, containers=None):
+    def __init__(self, x: int, y: int, containers=None, shots_group=None):
         super().__init__(x, y, PLAYER_RADIUS, containers=containers)
+        self.shots_group = shots_group
         self.rotation = 0
 
     def triangle(self):
@@ -34,8 +36,13 @@ class Player(CircleShape):
             self.move(dt)
         if keys[pygame.K_s]:
             self.move(-dt)
+        if keys[pygame.K_SPACE]:
+            self.shoot()
 
     def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
 
+    def shoot(self):
+        shot = Shot(self.position.x, self.position.y, self.rotation)
+        
