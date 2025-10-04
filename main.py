@@ -14,13 +14,15 @@ def main():
     
     # Create the play object outside the game loop
     player = Player(SCREEN_HEIGHT / 2, SCREEN_WIDTH /2)
-    while True:
-        
+   
+   
+    while True:        
         screen.fill((0,0,0)) # Clear the creen black
+        dt = clock.tick(60) / 1000 # Delta Time in seconds
+        player.update(dt)
         player.draw(screen)
         pygame.display.flip() # update the display
-        dt = clock.tick(60) / 1000 # Delta Time in seconds
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
