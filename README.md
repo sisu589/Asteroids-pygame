@@ -38,10 +38,20 @@ A simple Asteroids clone built with Python and Pygame.
 - `circleshape.py` — Base class for circular sprites
 - `constants.py` — Game constants
 
-## To Do
-- Add bullet-asteroid collision
-- Add score and lives
-- Add sound effects
+## Roadmap / Planned Features
+- Scoring system
+- Multiple lives and respawning
+- Asteroid explosion effects
+- Player acceleration
+- Screen wrap-around for all objects
+- Background image
+- Different weapon types
+- Lumpy asteroids (polygonal shapes)
+- Triangular ship hitbox
+- Shield power-up
+- Speed power-up
+- Bombs
+- Sound effects
 
 ---
 Enjoy blasting asteroids!
