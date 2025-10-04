@@ -2,10 +2,12 @@ import pygame
 from constants import *
 from circleshape import *
 from player import *
+from asteroid import *
+from asteroidfield import *
 
-# Create two groups updatable and drawable
 updatable = pygame.sprite.Group()
 drawable = pygame.sprite.Group()
+asteroids = pygame.sprite.Group()
 
 
 def main():
@@ -19,10 +21,12 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
     
-    # Create the play object outside the game loop
+    # Create the player object outside the game loop
     player = Player(SCREEN_HEIGHT / 2, SCREEN_WIDTH /2, containers=(updatable, drawable))
-   
-   
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
+    asteroid_field = AsteroidField()
+
     while True:        
         screen.fill((0,0,0)) # Clear the screen black
 
