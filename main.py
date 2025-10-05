@@ -11,7 +11,13 @@ asteroids = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 
 
+# Score setup
+score = 0
+pygame.font.init()
+font = pygame.font.SysFont(None, 36)
+
 def main():
+    global score
     print("Starting Asteroids!")
     print("Screen width: " + str(SCREEN_WIDTH))
     print("Screen height: " + str(SCREEN_HEIGHT))
@@ -47,15 +53,22 @@ def main():
                 if asteroid.collides_with(shot):
                     asteroid.split()
                     shot.kill()
+                    score += 10
 
         for sprite in drawable:
             sprite.draw(screen)
-        pygame.display.flip()
+        
 
         # Calculate delta time in seconds
         dt = clock.tick(60) / 1000 # Delta Time in seconds
         
-        
+        # Render the score 
+        # Create a surface with the score text
+        score_surface = font.render(f"Score: {score}", True, (255, 255, 255))
+        # Blit the score surface onto the main screen at the top-left corner
+        screen.blit(score_surface, (10, 10))
+
+        pygame.display.flip() # Update the full display Surface to the screen
         # Handle Evnets
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
