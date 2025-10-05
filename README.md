@@ -24,7 +24,8 @@ A simple Asteroids clone built with Python and Pygame.
    ```bash
    pip install pygame
    ```
-2. Run the game:
+2. Make sure you have a background image named `asteroids_background.jpg` in the project folder. You can use your own image or the provided one.
+3. Run the game:
    ```bash
    python main.py
    ```
@@ -37,14 +38,12 @@ A simple Asteroids clone built with Python and Pygame.
 - `shot.py` — Bullet logic
 - `circleshape.py` — Base class for circular sprites
 - `constants.py` — Game constants
+- `asteroids_background.jpg` — Background image for the game
 
 ## Roadmap / Planned Features
-- Scoring system
 - Multiple lives and respawning
-- Asteroid explosion effects
 - Player acceleration
 - Screen wrap-around for all objects
-- Background image
 - Different weapon types
 - Lumpy asteroids (polygonal shapes)
 - Triangular ship hitbox
