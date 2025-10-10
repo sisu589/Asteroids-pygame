@@ -31,6 +31,7 @@ class AsteroidField(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.spawn_timer = 0.0
+        self.powerup_timer = 0.0
 
     def spawn(self, radius, position, velocity):
         asteroid = Asteroid(position.x, position.y, radius)
@@ -49,3 +50,13 @@ class AsteroidField(pygame.sprite.Sprite):
             position = edge[1](random.uniform(0, 1))
             kind = random.randint(1, ASTEROID_KINDS)
             self.spawn(ASTEROID_MIN_RADIUS * kind, position, velocity)
+
+        # power-up spawning
+        self.powerup_timer += dt
+        if self.powerup_timer > POWERUP_SPAWN_RATE:
+            self.powerup_timer = 0
+            # spawn a shield powerup at a random position near screen edges
+            edge = random.choice(self.edges)
+            position = edge[1](random.uniform(0, 1))
+            from powerup import PowerUp
+            pu = PowerUp(position.x, position.y, kind="shield")

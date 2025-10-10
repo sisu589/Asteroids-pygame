@@ -11,6 +11,7 @@ drawable = pygame.sprite.Group()
 asteroids = pygame.sprite.Group()
 shots = pygame.sprite.Group()
 explosions = pygame.sprite.Group()
+powerups = pygame.sprite.Group()
 
 # Score setup
 score = 0
@@ -38,6 +39,13 @@ def main():
     Shot.containers = (shots, drawable, updatable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
+    PowerUp_containers = (powerups, drawable, updatable)
+    # set PowerUp containers on the class
+    try:
+        from powerup import PowerUp
+        PowerUp.containers = PowerUp_containers
+    except Exception:
+        pass
     asteroid_field = AsteroidField()
 
 
@@ -50,6 +58,11 @@ def main():
         # Check for collisions between player and asteroids
         for asteroid in asteroids:
             if asteroid.collides_with(player):
+                # If player has an active shield, consume it and destroy the asteroid
+                if player.shield_time_left > 0:
+                    Explosion(asteroid.position, asteroid.radius, (explosions, drawable, updatable))
+                    asteroid.kill()
+                    continue
                 print("Game over!")
                 pygame.quit()
                 exit()
@@ -73,12 +86,23 @@ def main():
         score_surface = font.render(f"Score: {score}", True, (255, 255, 255))
         # Blit the score surface onto the main screen at the top-left corner
         screen.blit(score_surface, (10, 10))
+        # Render shield HUD if active
+        if player.shield_time_left > 0:
+            # show one decimal place
+            shield_text = f"Shield: {player.shield_time_left:.1f}s"
+            shield_surface = font.render(shield_text, True, (150, 200, 255))
+            # place it to the right of the score
+            screen.blit(shield_surface, (10, 10 + score_surface.get_height() + 4))
 
         pygame.display.flip() # Update the full display Surface to the screen
         # Handle Evnets
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        # check player pickup of powerups
+        for pu in powerups:
+            if pu.collides_with(player):
+                player.apply_powerup(pu)
                 
                     
 if __name__ == "__main__":

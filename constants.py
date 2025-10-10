@@ -14,3 +14,8 @@ SHOT_RADIUS = 5
 PLAYER_SHOOT_SPEED = 500
 
 PLAYER_SHOOT_COOLDOWN = 0.3
+
+# Shield / power-up constants
+SHIELD_RADIUS = 15
+SHIELD_DURATION = 10.0  # seconds the shield lasts once picked up
+POWERUP_SPAWN_RATE = 10.0  # seconds between attempts to spawn a power-up
